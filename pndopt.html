@@ -875,9 +875,19 @@ var global_solutions = [];
 var global_index = 0;
 
 $(document).ready(function() {
-    $('#grid > div').each(function() {
+    var orbs_found = [];
+    
+    initImageAnalysis();
+
+    $('#grid > div').each(function(index) {
+        console.log(orbs_found[index]);
+	if (orbs_found.length > 0) {
+		$(this).addClass(orbs_found[index]);
+	}	else {
         $(this).addClass('eX');
-    })
+	}
+        // ALEX - We will import the orbs within this each function
+    });
 
     $('#grid > div, .change-target').mousedown(function(e) {
         var type = get_type(this);
@@ -1024,8 +1034,9 @@ $(document).ready(function() {
         clear_canvas();
         $('#change-popup').hide();
     });
-    //Create a stage by getting a reference to the canvas
-    stage = new createjs.Stage("drawCanvas");
+function initImageAnalysis() {
+//Create a stage by getting a reference to the canvas
+stage = new createjs.Stage("drawCanvas");
     
 var data = {
 	images:["/images/image2.png"],
@@ -1033,33 +1044,67 @@ frames: {width: 177, height: 177},
 };
 var spriteSheet = new createjs.SpriteSheet(data);
     var sprite = new createjs.Sprite(spriteSheet);
-    console.log(sprite);
-    console.log(spriteSheet);
+    var frameIndex = spriteSheet._numFrames;
+    for (numx=0; numx < frameIndex; numx++) {
+     if (numx > 29) {  
+    	var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, numx);
+        var imageColor = getAverageRGB(img);
+        var red_value = imageColor.r;
+        var green_value = imageColor.g;
+        var blue_value = imageColor.b;
+        var orb = {"red": red_value, "green": green_value, "blue": blue_value};
+       
+	 //console.log('--');
+	// LIGHT ORBS
+        if (orb.red < 175 && orb.red > 135 && orb.green > 130 && orb.green < 175) {
+	 orbs_found.push("e3");
+	}
+	// HEART ORBS
+        if (orb.red < 185 && orb.red > 160 && orb.green > 80 && orb.green < 110 && orb.blue < 145 && orb.blue > 110) {
+         orbs_found.push("e5");	
+	}
+	// DARK ORBS
+	if (orb.red < 160 && orb.red > 105 && orb.green < 110 && orb.green > 60 && orb.blue < 155 && orb.blue > 110) {
+         orbs_found.push("e4");
+	}
+	// WOOD ORBS
+	if (orb.red < 120 && orb.red > 70 && orb.green < 170 && orb.green > 125 && orb.blue < 130 && orb.blue > 75) {
+ 	 orbs_found.push("e2");
+        }
+	// FIRE ORBS
+        if (orb.red < 210 && orb.red > 150 && orb.green < 125 && orb.green > 75 && orb.blue < 120 && orb.blue > 50) {
+	 orbs_found.push("e0");
+        }
+	// WATER ORBS
+        if (orb.red < 135 && orb.red > 75 && orb.green < 155 && orb.green > 105 && orb.blue < 195 && orb.blue > 135) {
+	 orbs_found.push("e1");
+ 	}
+        //console.log(orb.red);
+        //console.log(orb.green);
+        //console.log(orb.blue);
+        //console.log('--');
+        //orbs_found.push(orb);
+        
+        
+      }
+    }
+    console.log(orbs_found);
     sprite.gotoAndStop(3);
-    var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 40);
+    var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 30);
     document.getElementById("status").appendChild(img);
     var imageColor = getAverageRGB(img);
-    console.log(imageColor.r); 
     var red_value = imageColor.r;
     var green_value = imageColor.g;
     var blue_value = imageColor.b;
     
-    var the_found_color = 
     document.body.style.backgroundColor="rgb(" + red_value + "," + green_value + "," + blue_value +")";
-	
-
-console.log(document.body.style.backgroundColor);
-    function find_orb_color(img) {
-	var orbs = {"heart":"values"};  
-    }
-console.log(imageColor);
     stage.addChildAt(sprite);
     stage.update();
-	console.log(sprite);
+}
 	// GET IMAGE COLOR
 	function getAverageRGB(imgEl) {
 
-		var blockSize = 1, // only visit every 5 pixels
+		var blockSize = 5, // only visit every 5 pixels
 		    defaultRGB = {r:0,g:0,b:0}, // for non-supporting envs
 		    canvas = document.createElement('canvas'),
 		    context = canvas.getContext && canvas.getContext('2d'),
@@ -1102,6 +1147,7 @@ console.log(imageColor);
 		return rgb;
 
 	}
+	
 });
 
 
