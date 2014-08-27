@@ -291,7 +291,7 @@
     <input type="button" value="Import" id="import"/> &bull;
     <input type="button" value="Change orbs" id="change"/>
 </div>
-<img class="uploaded-image" src="/images/image1.jpg">
+<img class="uploaded-image" src="/images/image2.png">
 
 <div id="solutions">
     <ol></ol>
@@ -1026,29 +1026,82 @@ $(document).ready(function() {
     });
     //Create a stage by getting a reference to the canvas
     stage = new createjs.Stage("drawCanvas");
-    //Create a Shape DisplayObject.
-    circle = new createjs.Shape();
-    circle.graphics.beginFill("red").drawCircle(0, 0, 40);
-    //Set position of Shape instance.
-    circle.x = circle.y = 50;
-    //Add Shape instance to stage display list.
-    stage.addChild(circle);
-    //Update stage will render next frame
-    stage.update();
-    console.log(stage);
-
+    
 var data = {
 	images:["/images/image2.png"],
-frames: {width: 100, height: 100},
+frames: {width: 177, height: 177},
 };
 var spriteSheet = new createjs.SpriteSheet(data);
     var sprite = new createjs.Sprite(spriteSheet);
     console.log(sprite);
-    sprite.gotoAndStop(400);
-    stage.addChild(sprite);
-    stage.update();
-    // BREAK UP IMAGE INTO SMALLER BITS
+    console.log(spriteSheet);
+    sprite.gotoAndStop(3);
+    var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 40);
+    document.getElementById("status").appendChild(img);
+    var imageColor = getAverageRGB(img);
+    console.log(imageColor.r); 
+    var red_value = imageColor.r;
+    var green_value = imageColor.g;
+    var blue_value = imageColor.b;
+    
+    var the_found_color = 
+    document.body.style.backgroundColor="rgb(" + red_value + "," + green_value + "," + blue_value +")";
+	
 
+console.log(document.body.style.backgroundColor);
+    function find_orb_color(img) {
+	var orbs = {"heart":"values"};  
+    }
+console.log(imageColor);
+    stage.addChildAt(sprite);
+    stage.update();
+	console.log(sprite);
+	// GET IMAGE COLOR
+	function getAverageRGB(imgEl) {
+
+		var blockSize = 1, // only visit every 5 pixels
+		    defaultRGB = {r:0,g:0,b:0}, // for non-supporting envs
+		    canvas = document.createElement('canvas'),
+		    context = canvas.getContext && canvas.getContext('2d'),
+		    data, width, height,
+		    i = -4,
+		    length,
+		    rgb = {r:0,g:0,b:0},
+		    count = 0;
+
+		if (!context) {
+			return defaultRGB;
+		}
+
+		height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+		width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+
+		context.drawImage(imgEl, 0, 0);
+
+		try {
+			data = context.getImageData(0, 0, width, height);
+		} catch(e) {
+			/* security error, img on diff domain */alert('x');
+			return defaultRGB;
+		}
+
+		length = data.data.length;
+
+		while ( (i += blockSize * 4) < length ) {
+			++count;
+			rgb.r += data.data[i];
+			rgb.g += data.data[i+1];
+			rgb.b += data.data[i+2];
+		}
+
+		// ~~ used to floor values
+		rgb.r = ~~(rgb.r/count);
+		rgb.g = ~~(rgb.g/count);
+		rgb.b = ~~(rgb.b/count);
+
+		return rgb;
+
+	}
 });
 
 
