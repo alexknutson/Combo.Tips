@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Puzzle &amp; Dragons optimizer</title>
+<script src="http://code.createjs.com/easeljs-0.7.1.min.js"></script>
 <meta charset="utf-8"/>
 <style>
 @font-face {
@@ -150,6 +151,10 @@
     right: 20px;
     bottom: 20px;
 }
+.uploaded-image {
+  display: block;
+  margin-top: 520px;
+}
 #import-import, #change-change { font-weight: bold; }
 .change-target { cursor: pointer; }
 .prev-selection { background: #ffc; }
@@ -158,6 +163,8 @@
 </head>
 <body>
 
+<canvas id="fakeCanvas"></canvas>
+<canvas id="drawCanvas"></canvas>
 <p id="status">...</p>
 
 <canvas id="path" width="380" height="316">
@@ -284,6 +291,7 @@
     <input type="button" value="Import" id="import"/> &bull;
     <input type="button" value="Change orbs" id="change"/>
 </div>
+<img class="uploaded-image" src="/images/image1.jpg">
 
 <div id="solutions">
     <ol></ol>
@@ -1016,6 +1024,57 @@ $(document).ready(function() {
         clear_canvas();
         $('#change-popup').hide();
     });
+    //Create a stage by getting a reference to the canvas
+    stage = new createjs.Stage("demoCanvas");
+    //Create a Shape DisplayObject.
+    circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawCircle(0, 0, 40);
+    //Set position of Shape instance.
+    circle.x = circle.y = 50;
+    //Add Shape instance to stage display list.
+    stage.addChild(circle);
+    //Update stage will render next frame
+    stage.update();
+    console.log(stage);
+    // BREAK UP IMAGE INTO SMALLER BITS
+
+    
+    var canvas = document.getElementById('fakeCanvas');
+    var ctx = canvas.getContext('2d');
+
+    var img = new Image();
+    img.crossOrigin='anonymous';
+    img.src = '/images/image1.jpg';
+    var tiles = [];
+    var  imageTileNumWidth = 23;
+    var imageTileNumHeight = 21;
+    console.log(img);
+
+    img.onload = function(){
+      console.log('canvas loaded');
+      var imageWidth = img.width;
+      var imageHeight = img.height;
+      sndCanvasWidth = imageWidth/imageTileNumWidth;
+      sndCanvasHeight = imageHeight/imageTileNumHeight;
+      canvas.width = imageWidth;
+      canvas.height = imageHeight;
+      ctx.drawImage(img,0,0,imageWidth,imageHeight);
+      var sndCanvas = document.getElementById('drawCanvas');
+      sndCanvas.width=sndCanvasWidth;
+      sndCanvas.height=sndCanvasHeight;
+      var i=0;
+      var j=0;
+      var t=0;
+      for(i=0;i<imageWidth;i+=sndCanvasWidth){
+        for(j=0;j<imageHeight;j+=sndCanvasHeight){
+          var myImageData = ctx.getImageData(j,i,sndCanvasWidth,sndCanvasHeight);     
+          var ctx2 = sndCanvas.getContext("2d");
+          ctx2.putImageData(myImageData,0,0);
+          tiles.push(myImageData);  
+        }
+      }
+      console.log(canvas);
+    };
 });
 
 
