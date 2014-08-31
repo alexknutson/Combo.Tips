@@ -45,10 +45,27 @@
           var orbs_found = [];
     //Create a stage by getting a reference to the canvas
     stage = new createjs.Stage("drawCanvas");
+    var image_object = $('.uploaded-image');
+    // Percentages
+    var game_header_height = 55.72;
+    var game_header_width = 100;
+    var orb_grid_height = 44.28;
+    var orb_grid_width = 100;
+
+    //image_object[0].height = 1080;
+    //image_object[0].width = 1920;
+    var image_height = $(image_object).height();
+    var image_width = $(image_object).width();
+
+    //var orb_frame_width = (image_width * .166);
+    //var orb_frame_height = (image_height * .0916);
+    var orb_frame_width = (image_width * .166);
+    var orb_frame_height = (image_height * .0905555);
+    console.log(orb_frame_width, orb_frame_height);
     var uploaded_image_url = $('.uploaded-image').attr('src');
     var data = {
       images:[uploaded_image_url],
-      frames: {width: 177, height: 177},
+      frames: {width: orb_frame_width, height: orb_frame_height},
     };
     var spriteSheet = new createjs.SpriteSheet(data);
     var sprite = new createjs.Sprite(spriteSheet);
@@ -58,54 +75,173 @@
     console.log(number_of_frames + ' get number frames');
     var frameIndex = spriteSheet._numFrames;
     console.log(frameIndex);
+    var tolerance_level = 20;
+    var color_top_range = function(color) {
+        var cTopRange = (color + tolerance_level);
+        
+        return cTopRange;
+
+    }
+    var color_bottom_range = function(color) {
+      var cBottomRange = (color - tolerance_level);
+      return cBottomRange;
+    }
+
+    var fire_rgb_default = [179, 98, 84];
+    var water_rgb_default = [106, 132, 165];
+    var wood_rgb_default = [94, 152, 111];
+    var light_rgb_default = [169, 154, 97];
+    var dark_rgb_default = [145, 91, 140];
+    var heart_rgb_default = [173, 86, 124];
+
+
+
+
+
     for (numx=0; numx < frameIndex; numx++) {
       if (numx > 29) {  
+
+        var isLikeFire = false;
+        var isLikeWater = false;
+        var isLikeWood = false;
+        var isLikeLight = false;
+        var isLikeDark = false;
+        var isLikeHeart = false;
+
         var imgEl = createjs.SpriteSheetUtils.extractFrame(spriteSheet, numx);
         var imageColor = $(document).getAverageRGB(imgEl);
         var red_value = imageColor.r;
         var green_value = imageColor.g;
         var blue_value = imageColor.b;
         var orb = {"red": red_value, "green": green_value, "blue": blue_value};
+        if (orb) {
+          console.log('#### Setting up color ranges ####');
+          console.log(orb);
+
+          if (color_top_range(orb.red) > fire_rgb_default[0] && fire_rgb_default[0] > color_bottom_range(orb.red)) {
+            if (color_top_range(orb.green) > fire_rgb_default[1] && fire_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > fire_rgb_default[2] && fire_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeFire = true;
+              }
+            }
+          }
+          if (color_top_range(orb.red) > water_rgb_default[0] && water_rgb_default[0] > color_bottom_range(orb.red)) {
+            if (color_top_range(orb.green) > water_rgb_default[1] && water_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > water_rgb_default[2] && water_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeWater = true;
+              }
+            }
+          }
+          if (color_top_range(orb.red) > wood_rgb_default[0] && wood_rgb_default[0] > color_bottom_range(orb.red)) {
+            if (color_top_range(orb.green) > wood_rgb_default[1] && wood_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > wood_rgb_default[2] && wood_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeWood = true;
+              }
+            }
+          }
+          if (color_top_range(orb.red) > light_rgb_default[0] && light_rgb_default[0] > color_bottom_range(orb.red)) {
+            if (color_top_range(orb.green) > light_rgb_default[1] && light_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > light_rgb_default[2] && light_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeLight = true;
+              }
+            }
+          }
+          if (color_top_range(orb.red) > dark_rgb_default[0] && dark_rgb_default[0] > color_bottom_range(orb.red)) {
+            if (color_top_range(orb.green) > dark_rgb_default[1] && dark_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > dark_rgb_default[2] && dark_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeDark = true;
+              }
+            }
+          }
+          if (color_top_range(orb.red) > heart_rgb_default[0] && heart_rgb_default[0] > color_bottom_range(orb.red)) {
+            if (color_top_range(orb.green) > heart_rgb_default[1] && heart_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > heart_rgb_default[2] && heart_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeHeart = true;
+              }
+            }
+          }
+
+
+
+
+
+        }
+
+        // NEW WAY
+        if (isLikeFire) {
+          orbs_found.push("e0");
+          console.log('its fire');
+        }
+        if (isLikeWater) {
+          orbs_found.push("e1");
+          console.log('its water');
+        }
+        if (isLikeWood) {
+          orbs_found.push("e2");
+          console.log('its wood');
+        }
+        if (isLikeLight) {
+          orbs_found.push("e3");
+          console.log('its light');
+        }
+        if (isLikeDark) {
+          orbs_found.push("e4");
+          console.log('its dark');
+        }
+        if (isLikeHeart) {
+          orbs_found.push("e5");
+          console.log('its heart');
+        }
+        
+
+
+        /** OLD WAY
         console.log('--');
         // LIGHT ORBS
-        if (orb.red < 175 && orb.red > 135 && orb.green > 130 && orb.green < 175) {
+        if (orb.red < 175 && orb.red > 135 && orb.green > 120 && orb.green < 175) {
           orbs_found.push("e3");
+          console.log('light');
         }
         // HEART ORBS
-        if (orb.red < 185 && orb.red > 160 && orb.green > 80 && orb.green < 110 && orb.blue < 145 && orb.blue > 110) {
-          orbs_found.push("e5");	
+        if (orb.red < 185 && orb.red > 150 && orb.green > 70 && orb.green < 110 && orb.blue < 145 && orb.blue > 100) {
+          orbs_found.push("e5");
+          console.log('heart');
         }
         // DARK ORBS
         if (orb.red < 160 && orb.red > 105 && orb.green < 110 && orb.green > 60 && orb.blue < 155 && orb.blue > 110) {
           orbs_found.push("e4");
+          console.log('dark');
         }
         // WOOD ORBS
-        if (orb.red < 120 && orb.red > 70 && orb.green < 170 && orb.green > 125 && orb.blue < 130 && orb.blue > 75) {
+        if (orb.red < 120 && orb.red > 65 && orb.green < 170 && orb.green > 125 && orb.blue < 130 && orb.blue > 75) {
           orbs_found.push("e2");
+          console.log('wood');
         }
         // FIRE ORBS
         if (orb.red < 210 && orb.red > 150 && orb.green < 125 && orb.green > 75 && orb.blue < 120 && orb.blue > 50) {
           orbs_found.push("e0");
+          console.log('fire');
         }
         // WATER ORBS
         if (orb.red < 135 && orb.red > 75 && orb.green < 155 && orb.green > 105 && orb.blue < 195 && orb.blue > 135) {
           orbs_found.push("e1");
+          console.log('water');
         }
         console.log(orb.red);
         console.log(orb.green);
         console.log(orb.blue);
         console.log('--');
         //orbs_found.push(orb);
+        **/
 
       }
     }
     $('#grid > div').each(function(index) {
-      console.log(orbs_found[index]);
+      //console.log(orbs_found[index]);
       if (orbs_found.length > 0) {
         var grid_class = $(this).attr('class');
         var current_icon_class = $(this).attr('class').split(' ').slice(-1);
         var swap_class = grid_class.replace(current_icon_class, orbs_found[index]);
-        console.log(swap_class);
         $(this).removeClass().addClass(swap_class);
         //console.log(current_icon_class);
         //$(this).removeClass(current_icon_class);
@@ -117,7 +253,7 @@
     });
     //console.log(orbs_found);
     sprite.gotoAndStop(3);
-    var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 59);
+    var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 54);
     //console.log(img);
     document.getElementById("status").appendChild(img);
     //var imageColor = getAverageRGB(img);
@@ -176,5 +312,7 @@
 
   }
 
+  //helpers
+  
 
 })(jQuery);
