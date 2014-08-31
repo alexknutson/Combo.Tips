@@ -33,35 +33,40 @@
 
   });
 
-  console.log('main loaded');
+  //console.log('main loaded');
   $('.uploaded-image').on("click", function(){
-    console.log('clicked image');
+    //console.log('clicked image');
   $(document).initImageAnalysis();
-    
+    ga('send', 'event', 'button', 'click', 'Combo Requested', 1);
   });
   
   $.fn.initImageAnalysis = function() {
-
-          var orbs_found = [];
+    // Setup orb array
+    var orbs_found = [];
+    
     //Create a stage by getting a reference to the canvas
     stage = new createjs.Stage("drawCanvas");
     var image_object = $('.uploaded-image');
-    // Percentages
+    
+    // Percentages (NOT USED)
     var game_header_height = 55.72;
     var game_header_width = 100;
     var orb_grid_height = 44.28;
     var orb_grid_width = 100;
 
-    //image_object[0].height = 1080;
-    //image_object[0].width = 1920;
     var image_height = $(image_object).height();
     var image_width = $(image_object).width();
-
+    
+    // if we want to break the algorithm... use these
     //var orb_frame_width = (image_width * .166);
     //var orb_frame_height = (image_height * .0916);
+    
+    // Mobile phones have a wide variety of screenshot resolutions.
+    // So to make sure our analysis works on all of those image sizes, we
+    // set the frame size using dynamic width/height values.
     var orb_frame_width = (image_width * .166);
     var orb_frame_height = (image_height * .0905555);
-    console.log(orb_frame_width, orb_frame_height);
+    
     var uploaded_image_url = $('.uploaded-image').attr('src');
     var data = {
       images:[uploaded_image_url],
@@ -69,24 +74,27 @@
     };
     var spriteSheet = new createjs.SpriteSheet(data);
     var sprite = new createjs.Sprite(spriteSheet);
-    console.log(spriteSheet);
-    if (!sprite.complete)
+    //console.log(spriteSheet);
     var number_of_frames = spriteSheet._numFrames;
-    console.log(number_of_frames + ' get number frames');
+    //console.log(number_of_frames + ' get number frames');
     var frameIndex = spriteSheet._numFrames;
-    console.log(frameIndex);
+    //console.log(frameIndex);
+    // 20 works best...
     var tolerance_level = 20;
+
+    // Used to add the tolerance for an RGB value
     var color_top_range = function(color) {
         var cTopRange = (color + tolerance_level);
         
         return cTopRange;
 
     }
+    // Used to subtract the tolerance for an RGB value
     var color_bottom_range = function(color) {
       var cBottomRange = (color - tolerance_level);
       return cBottomRange;
     }
-
+    // Sets up defaults. These may need to be adjusted if we start seeing a lot of errors
     var fire_rgb_default = [179, 98, 84];
     var water_rgb_default = [106, 132, 165];
     var wood_rgb_default = [94, 152, 111];
@@ -97,7 +105,7 @@
 
 
 
-
+    // Super dirty, but it works...
     for (numx=0; numx < frameIndex; numx++) {
       if (numx > 29) {  
 
@@ -115,8 +123,8 @@
         var blue_value = imageColor.b;
         var orb = {"red": red_value, "green": green_value, "blue": blue_value};
         if (orb) {
-          console.log('#### Setting up color ranges ####');
-          console.log(orb);
+          //console.log('#### Setting up color ranges ####');
+          //console.log(orb);
 
           if (color_top_range(orb.red) > fire_rgb_default[0] && fire_rgb_default[0] > color_bottom_range(orb.red)) {
             if (color_top_range(orb.green) > fire_rgb_default[1] && fire_rgb_default[1] > color_bottom_range(orb.green)) {
@@ -170,27 +178,27 @@
         // NEW WAY
         if (isLikeFire) {
           orbs_found.push("e0");
-          console.log('its fire');
+          //console.log('its fire');
         }
         if (isLikeWater) {
           orbs_found.push("e1");
-          console.log('its water');
+          //console.log('its water');
         }
         if (isLikeWood) {
           orbs_found.push("e2");
-          console.log('its wood');
+          //console.log('its wood');
         }
         if (isLikeLight) {
           orbs_found.push("e3");
-          console.log('its light');
+          //console.log('its light');
         }
         if (isLikeDark) {
           orbs_found.push("e4");
-          console.log('its dark');
+          //console.log('its dark');
         }
         if (isLikeHeart) {
           orbs_found.push("e5");
-          console.log('its heart');
+          //console.log('its heart');
         }
         
 
@@ -243,6 +251,12 @@
         var current_icon_class = $(this).attr('class').split(' ').slice(-1);
         var swap_class = grid_class.replace(current_icon_class, orbs_found[index]);
         $(this).removeClass().addClass(swap_class);
+        // SET ERROR FOR ORB ISSUE
+        if (orbs_found[index] === undefined) {
+           $(this).addClass('eX');
+           var message = '<div class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
+           $("#screenshot-upload").append(message);
+        }
         //console.log(current_icon_class);
         //$(this).removeClass(current_icon_class);
         //$(this).removeClass(current_icon_class).addClass(orbs_found[index]);
@@ -252,10 +266,10 @@
       // ALEX - We will import the orbs within this each function
     });
     //console.log(orbs_found);
-    sprite.gotoAndStop(3);
-    var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 54);
+    //sprite.gotoAndStop(3);
+    //var img = createjs.SpriteSheetUtils.extractFrame(spriteSheet, 54);
     //console.log(img);
-    document.getElementById("status").appendChild(img);
+    //document.getElementById("status").appendChild(img);
     //var imageColor = getAverageRGB(img);
     //var red_value = imageColor.r;
     //var green_value = imageColor.g;
