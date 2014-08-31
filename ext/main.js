@@ -256,6 +256,8 @@
            $(this).addClass('eX');
            var message = '<div class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
            $("#screenshot-upload").append(message);
+
+            ga('send', 'event', 'error', 'Algorithm', 'Orb Color Not Found', 1);
         }
         //console.log(current_icon_class);
         //$(this).removeClass(current_icon_class);
@@ -263,7 +265,6 @@
       }	else {
         $(this).addClass('eX');
       }
-      // ALEX - We will import the orbs within this each function
     });
     //console.log(orbs_found);
     //sprite.gotoAndStop(3);
