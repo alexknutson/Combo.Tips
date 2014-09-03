@@ -1,45 +1,83 @@
-//Dropzone.autoDiscover = false;
-//(function($) {
-
-
-////var dz_screenshot = new Dropzone("#screenshot-upload");
-////dz_screenshot.on("addedfile", function(file) {
-
-  ////console.log('file added');
-
-////});
-////$("#screenshot-upload").dropzone({url: "/upload.php"});
-////$("#screenshot-upload").on("fileadded", function(file) {
-////    console.log(file);
-////});
-//})(jQuery);
-//
-//
+/** 
+ * Main js file for Combo.Tips
+*/
 
 (function($) {
 
+
   // Handle the file uploaded by Dropzone
   Dropzone.autoDiscover = false;
-  var dz_screenshot = new Dropzone("#screenshot-upload");
+  var dz_screenshot = new Dropzone("#screenshot-upload", {
+    acceptedFiles:"image/*",
+    
+  });
+
   dz_screenshot.on("complete", function(file) {
     $.ajax({
     url: '/images/uploads/' + file.name,
     // Double check to make sure the file is there before we attach the src to the canvas image
     success: function(){
       $('.uploaded-image').attr("src", "/images/uploads/" + file.name);
+      $('#screenshot-upload img').first().attr("src", "/images/uploads/" + file.name);
+      $('.dropdown.upload').toggleClass('open');
+      //console.log($('.upload-image'));
+      //$('#screenshot-upload').first('img').attr("src", "/images/uploads/" + file.name);
+      //console.log(($('#uploaded-image').find('img')));
     },
     
     });
 
   });
+  // ##### IMGUR SOLUTION. NOT BEING USED
+//$('#imgur_upload').on('submit', function(e){
+      //e.preventDefault();
+      //console.log('test');
+      //console.log($(this));
+      //var form_data = new FormData(this);
+      //console.log(form_data);
+      //$.ajax({
+            //type: 'POST',
+            //url: $(this).attr('action'),
+            //data: form_data,
+            //cache: false,
+            //contentType: false,
+            //processData: false,
+            //dataType: "json",
+        //})
+        //.done(function(data){
+          //console.log(data);
+          //$('.uploaded-image').attr("src", data.data.link);
 
+          //console.log($('.uploaded-image').attr("src"));
+        //})
+        //.fail(function(data) {
+            //var responseText = data.responseText;
+            //console.log(responseText);
+            //console.log(data);
+            //// just in case posting your form failed
+            //console.log( "Posting failed." );
+             
+        //});
+
+  //});
   //console.log('main loaded');
-  $('.uploaded-image').on("click", function(){
+  $('.uploaded-image, #import-orbs').on("click", function(event){
     //console.log('clicked image');
   $(document).initImageAnalysis();
     ga('send', 'event', 'button', 'click', 'Combo Requested', 1);
   });
-  
+
+  $('html').on('click', function(event){
+    if ($('#keep-open input').prop("checked")) {
+      $('.dropdown-toggle').attr('data-toggle', 'collapse in');
+    } else {
+
+      $('.dropdown-toggle').attr('data-toggle', 'dropdown');
+    }
+  });
+
+
+
   $.fn.initImageAnalysis = function() {
     // Setup orb array
     var orbs_found = [];
@@ -53,10 +91,15 @@
     var game_header_width = 100;
     var orb_grid_height = 44.28;
     var orb_grid_width = 100;
-
-    var image_height = $(image_object).height();
-    var image_width = $(image_object).width();
+    // We can't have the analysis run from distorted DOM image values
+    //var image_height = $(image_object).height();
+    //var image_width = $(image_object).width();
     
+    // Instead, use the natural height/width
+    var image_height = image_object[0].naturalHeight;
+    var image_width = image_object[0].naturalWidth;
+
+   
     // if we want to break the algorithm... use these
     //var orb_frame_width = (image_width * .166);
     //var orb_frame_height = (image_height * .0916);
@@ -67,7 +110,18 @@
     var orb_frame_width = (image_width * .166);
     var orb_frame_height = (image_height * .0905555);
     
-    var uploaded_image_url = $('.uploaded-image').attr('src');
+    var uploaded_image_url = $(image_object).attr('src');
+    
+    //var xhr = new XMLHttpRequest();
+    //xhr.open("get", uploaded_image_url, true);
+    //xhr.onload = function(){
+      //console.log('we got the url with xhr');
+    //};
+    //xhr.send(null);
+    //xhr.abort();
+    //console.log(xhr);
+    // @images: The image url we're going to break up into tiny frames
+    // @frames: the size of each square frame that we will analyze for RGB values
     var data = {
       images:[uploaded_image_url],
       frames: {width: orb_frame_width, height: orb_frame_height},
@@ -79,6 +133,10 @@
     //console.log(number_of_frames + ' get number frames');
     var frameIndex = spriteSheet._numFrames;
     //console.log(frameIndex);
+  
+  
+    // @MAGIC - Adjusting the tolerance level to a higher value will
+    // broaden the range of acceptable colors for a given orb. 
     // 20 works best...
     var tolerance_level = 20;
 
