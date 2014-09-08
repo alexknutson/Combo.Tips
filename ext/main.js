@@ -4,6 +4,7 @@
 
 (function($) {
 
+  var throbber_animation_markup = $('<div class="dots">Loading...</div>');
 
   // Handle the file uploaded by Dropzone
   Dropzone.autoDiscover = false;
@@ -12,20 +13,36 @@
     
   });
 
+  dz_screenshot.on("processing", function() {
+    if ($('.dots').length === 0) {
+        $(throbber_animation_markup).appendTo('body');
+    } else {
+      $('.dots').css('display', 'block');
+    }
+  });
+
   dz_screenshot.on("complete", function(file) {
     $.ajax({
     url: '/images/uploads/' + file.name,
     // Double check to make sure the file is there before we attach the src to the canvas image
     complete: function(){
+       
       $('.uploaded-image').attr("src", "/images/uploads/" + file.name);
       $('#screenshot-upload img').first().attr("src", "/images/uploads/" + file.name);
+      $('.dots').css('display', 'none');
       $('.dropdown.upload').toggleClass('open');
+      //$('#import-orbs').trigger("click"); 
+      //$(document).initImageAnalysis();
+
       //console.log($('.upload-image'));
       //$('#screenshot-upload').first('img').attr("src", "/images/uploads/" + file.name);
       //console.log(($('#uploaded-image').find('img')));
-    },
+    }, 
+
     
     });
+
+
 
   });
   // ##### IMGUR SOLUTION. NOT BEING USED
@@ -81,10 +98,13 @@
   $.fn.initImageAnalysis = function() {
     // Setup orb array
     var orbs_found = [];
+    //console.log('it ran');
     
     //Create a stage by getting a reference to the canvas
     stage = new createjs.Stage("drawCanvas");
+    //console.log(stage);
     var image_object = $('.uploaded-image');
+    //console.log(image_object);
     
     // Percentages (NOT USED)
     var game_header_height = 55.72;
@@ -111,6 +131,7 @@
     var orb_frame_height = (image_height * .0905555);
     
     var uploaded_image_url = $(image_object).attr('src');
+    //console.log(uploaded_image_url);
     
     //var xhr = new XMLHttpRequest();
     //xhr.open("get", uploaded_image_url, true);
@@ -237,26 +258,23 @@
         if (isLikeFire) {
           orbs_found.push("e0");
           //console.log('its fire');
-        }
-        if (isLikeWater) {
+        } else if(isLikeWater) {
           orbs_found.push("e1");
           //console.log('its water');
-        }
-        if (isLikeWood) {
+        } else if (isLikeWood) {
           orbs_found.push("e2");
           //console.log('its wood');
-        }
-        if (isLikeLight) {
+        } else if (isLikeLight) {
           orbs_found.push("e3");
           //console.log('its light');
-        }
-        if (isLikeDark) {
+        } else if (isLikeDark) {
           orbs_found.push("e4");
           //console.log('its dark');
-        }
-        if (isLikeHeart) {
+        } else if (isLikeHeart) {
           orbs_found.push("e5");
           //console.log('its heart');
+        } else {
+          orbs_found.push('eX');
         }
         
 
@@ -336,6 +354,7 @@
 
     //document.body.style.backgroundColor="rgb(" + red_value + "," + green_value + "," + blue_value +")";
     //stage.update();
+    //console.log(orbs_found);
     return orbs_found;
   }
   // GET IMAGE COLOR
