@@ -16,7 +16,7 @@
     $.ajax({
     url: '/images/uploads/' + file.name,
     // Double check to make sure the file is there before we attach the src to the canvas image
-    success: function(){
+    complete: function(){
       $('.uploaded-image').attr("src", "/images/uploads/" + file.name);
       $('#screenshot-upload img').first().attr("src", "/images/uploads/" + file.name);
       $('.dropdown.upload').toggleClass('open');
