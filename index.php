@@ -532,7 +532,7 @@ border: 1px solid rgba(0,0,0,0.09);
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown upload open">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload screenshot <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Import from screenshot <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li class="list-float-left"><a href="#"><img class="uploaded-image" src="/images/image2.png"></a>
             
