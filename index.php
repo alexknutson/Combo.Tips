@@ -24,6 +24,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/basic.css">
 <link rel="stylesheet" type="text/css" href="css/dropzone.css">
+<link rel="stylesheet" type="text/css" href="css/throbber.css">
 <meta charset="utf-8"/>
 <style>
 
@@ -214,6 +215,13 @@
   cursor: pointer;
   width: 100%;
       }
+      .dots {
+        position: fixed !important;
+        bottom: 50%;
+        right: 50%;
+        z-index: 99999999;
+        transform: scale(6);
+      }
       .navbar-right .upload ul {
         width: 550px;
       }
@@ -278,6 +286,7 @@
       }
       .navbar-fixed-bottom {
           z-index: 99999;
+          font-size: 200%;
       }
       .upload .glyphicon {
         color: rgb(93,167,102);
@@ -522,7 +531,6 @@ border: 1px solid rgba(0,0,0,0.09);
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a id="import-orbs" href="#">Import from Screenshot</a></li>
         <li class="dropdown upload open">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload screenshot <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
