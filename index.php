@@ -560,6 +560,7 @@ border: 1px solid rgba(0,0,0,0.09);
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<span style="position: fixed; display: block; bottom: 55px; left: 10px; font-size: 13px; color: rgba(255,255,255,0.7);">Alpha 1.2</span>
     <script src="/ext/easeljs-0.7.1.min.js"></script>
     <script src="/ext/main.js"></script>
     <script>
