@@ -54,8 +54,8 @@ if(isset($_POST['submit'])){
     $tempFile = $_FILES['file']['tmp_name'];
 
     $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
-
-    $targetFile =  $targetPath. $_FILES['file']['name'];
+    $renamedFile = 'Puzzle-Dragons-Combo-Tips-'. $_FILES['file']['name'];
+    $targetFile =  $targetPath. $renamedFile;
 
     move_uploaded_file($tempFile,$targetFile); 
 

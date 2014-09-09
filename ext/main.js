@@ -26,13 +26,13 @@
     url: '/images/uploads/' + file.name,
     // Double check to make sure the file is there before we attach the src to the canvas image
     complete: function(){
-       
+      
       $('.uploaded-image').attr("src", "/images/uploads/" + file.name);
-      $('#screenshot-upload img').first().attr("src", "/images/uploads/" + file.name);
+      $('#screenshot-upload img').last().attr("src", "/images/uploads/" + file.name);
+     // console.log($('.uploaded-image').attr("src"));
       $('.dots').css('display', 'none');
       $('.dropdown.upload').toggleClass('open');
       //$('#import-orbs').trigger("click"); 
-      //$(document).initImageAnalysis();
 
       //console.log($('.upload-image'));
       //$('#screenshot-upload').first('img').attr("src", "/images/uploads/" + file.name);
@@ -43,8 +43,15 @@
     });
 
 
+      //$(document).initImageAnalysis();
 
   });
+  //$(document).ajaxComplete(function(event, xhr, settings) {
+    //console.log(event);
+    //console.log(xhr);
+    //console.log($('.uploaded-image').attr("src"));
+    ////$(document).initImageAnalysis();
+  //});
   // ##### IMGUR SOLUTION. NOT BEING USED
 //$('#imgur_upload').on('submit', function(e){
       //e.preventDefault();
@@ -328,11 +335,10 @@
         var swap_class = grid_class.replace(current_icon_class, orbs_found[index]);
         $(this).removeClass().addClass(swap_class);
         // SET ERROR FOR ORB ISSUE
-        if (orbs_found[index] === undefined) {
-           $(this).addClass('eX');
+        if (orbs_found[index] === 'eX') {
            var message = '<div class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
-           $("#screenshot-upload").append(message);
-
+           $("#solutions").append(message);
+          $(this).addClass('border-flash');
             ga('send', 'event', 'error', 'Algorithm', 'Orb Color Not Found', 1);
         }
         //console.log(current_icon_class);

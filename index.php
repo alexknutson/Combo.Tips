@@ -25,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="css/basic.css">
 <link rel="stylesheet" type="text/css" href="css/dropzone.css">
 <link rel="stylesheet" type="text/css" href="css/throbber.css">
+<link rel="stylesheet" type="text/css" href="css/border-flash.css">
 <meta charset="utf-8"/>
 <style>
 
@@ -528,7 +529,7 @@ border: 1px solid rgba(0,0,0,0.09);
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse in" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown upload open">
@@ -1126,6 +1127,7 @@ border: 1px solid rgba(0,0,0,0.09);
           });
       
           $('#solve').click(function() {
+              $('#grid > div').each(function(){ $(this).removeClass('border-flash'); });
               var solver_button = this;
               var board = get_board();
               global_board = board;
@@ -1142,6 +1144,7 @@ border: 1px solid rgba(0,0,0,0.09);
                   $('#solutions > ol').html(html_array.join(''));
                   solver_button.disabled = false;
               });
+              //$(document).initImageAnalysis();
           });
       
           $('#solutions').on('click', 'li', function(e) {
