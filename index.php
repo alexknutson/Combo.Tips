@@ -26,10 +26,13 @@
 <link rel="stylesheet" type="text/css" href="css/dropzone.css">
 <link rel="stylesheet" type="text/css" href="css/throbber.css">
 <link rel="stylesheet" type="text/css" href="css/border-flash.css">
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <meta charset="utf-8"/>
 <style>
 
-
+      .navbar-nav > li > a {
+        line-height: 1.42857143;
+      }
 
       @font-face {
       font-family: PnDIcons;
@@ -169,7 +172,7 @@
       left: 125px;
       top: 20px;
       font-size: 28px;
-      font-family: Consolas, monospace;
+      font-family: 'Roboto', monospace;
       letter-spacing: 28px;
       }
       #import-control, #change-control {
@@ -233,6 +236,7 @@
       body {
         background: url('/images/black_linen_v2.png');
         background-repeat: repeat;
+        font-family: 'Roboto', Helvetica;
 
       }
       th, label, #status, li, p {
@@ -308,7 +312,7 @@ border: 1px solid rgba(0,0,0,0.09);
       }
       
       .dropdown-menu span {
-        color: black;
+        color: white;
         display: table-cell;
       }
 
@@ -324,16 +328,20 @@ border: 1px solid rgba(0,0,0,0.09);
         background-color: darkgrey;
         outline: 1px solid slategrey;
       }
+      @media (min-width: 768px) {
+      .navbar-brand {
+        font-size: 132% !important;
+      }
+      .dropdown-menu span {
+        color: black;
+      }
       @media (max-width: 991px) {
           #solutions {
             margin-top: 600px;
           }
           #keep-open {
             display: none;
-          }
-          .dropdown-menu span {
-            color: white;
-          }
+          } 
       }
       .background-fade {
         width: 100%;
@@ -506,7 +514,7 @@ border: 1px solid rgba(0,0,0,0.09);
         <input type="button" value="Change" id="change-change"/>
       </div>
     </div>
-    <div class="container-fluid" style="padding: 0 5%;">
+    <div class="container-fluid" style="padding: 0 2%;">
     <div class="row">
       <div class="row">
         <div class="col-md-8">
@@ -570,7 +578,7 @@ border: 1px solid rgba(0,0,0,0.09);
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<span style="position: fixed; display: block; bottom: 55px; left: 10px; font-size: 13px; color: rgba(255,255,255,0.7);">Alpha 1.2</span>
+<span style="position: fixed; display: block; bottom: 55px; left: 10px; font-size: 13px; color: rgba(255,255,255,0.7);">Alpha 1.3</span>
     <script src="/ext/easeljs-0.7.1.min.js"></script>
     <script src="/ext/main.js"></script>
     <script>
