@@ -27,8 +27,8 @@
     // Double check to make sure the file is there before we attach the src to the canvas image
     complete: function(){
       
-      $('.uploaded-image').attr("src", "/images/uploads/" + file.name);
-      $('#screenshot-upload img').last().attr("src", "/images/uploads/" + file.name);
+      $('.uploaded-image').attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
+      $('#screenshot-upload img').last().attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
      // console.log($('.uploaded-image').attr("src"));
       $('.dots').css('display', 'none');
       $('.dropdown.upload').toggleClass('open');
