@@ -16,10 +16,10 @@
   dz_screenshot.on("processing", function() {
     if ($('.dots').length === 0) {
         $(throbber_animation_markup).appendTo('body');
-        $('.background-fade').fadeToggle();
+        $('.dots, .background-fade').fadeIn();
 
     } else {
-      $('.dots').fadeToggle();
+      $('.dots, .background-fade').fadeIn();
     }
   });
 
@@ -32,7 +32,11 @@
       $('.uploaded-image').attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
       $('#screenshot-upload img').last().attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
      // console.log($('.uploaded-image').attr("src"));
-      $('.dots, .background-fade').fadeToggle();
+      if ($('.dots').css('display') !== 'none' && $('.background-fade').css('display') !== 'none') {
+       $('.dots, .background-fade').promise().done(function(){
+        $(this).fadeToggle();
+       }); 
+      }
 
       $('.dropdown.upload').toggleClass('open');
       //$('#import-orbs').trigger("click"); 
@@ -87,7 +91,7 @@
         //});
 
   //});
-  //console.log('main loaded');
+
   $('.uploaded-image, #import-orbs').on("click", function(event){
     //console.log('clicked image');
   $(document).initImageAnalysis();
@@ -100,6 +104,10 @@
     } else {
 
       $('.dropdown-toggle').attr('data-toggle', 'dropdown');
+    }
+    // This one feels a bit hacky. Bootstrap was annoying
+    if (event.target.className == 'close') {
+      $('#orb-alert-msg.bs-example').fadeOut();
     }
   });
 
@@ -339,7 +347,7 @@
         $(this).removeClass().addClass(swap_class);
         // SET ERROR FOR ORB ISSUE
         if (orbs_found[index] === 'eX') {
-           var message = '<div class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
+           var message = '<div id="orb-alert-msg" class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
            $("#solutions").append(message);
           $(this).addClass('border-flash');
             ga('send', 'event', 'error', 'Algorithm', 'Orb Color Not Found', 1);
@@ -348,7 +356,7 @@
         //$(this).removeClass(current_icon_class);
         //$(this).removeClass(current_icon_class).addClass(orbs_found[index]);
       }	else {
-        $(this).addClass('eX');
+        //$(this).addClass('eX');
       }
     });
     //console.log(orbs_found);
