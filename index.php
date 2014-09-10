@@ -335,6 +335,7 @@ border: 1px solid rgba(0,0,0,0.09);
       .dropdown-menu span {
         color: black;
       }
+      }
       @media (max-width: 991px) {
           #solutions {
             margin-top: 600px;
@@ -342,7 +343,6 @@ border: 1px solid rgba(0,0,0,0.09);
           #keep-open {
             display: none;
           } 
-      }
       .background-fade {
         width: 100%;
         height: 100%;
