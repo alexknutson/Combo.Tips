@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=750, initial-scale=1">
+<meta name="viewport" content="width=750, user-scalable=yes">
     <title>Puzzle &amp; Dragons optimizer</title>
     <script src="/ext/jquery-1.9.1.min.js"></script>
     <script src="/ext/dropzone.min.js"></script>
@@ -334,6 +334,16 @@ border: 1px solid rgba(0,0,0,0.09);
           .dropdown-menu span {
             color: white;
           }
+      }
+      .background-fade {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        z-index: 99997;
+        top: 0;
+        display: none;
       }
     </style>
   </head>

@@ -4,7 +4,7 @@
 
 (function($) {
 
-  var throbber_animation_markup = $('<div class="dots">Loading...</div>');
+  var throbber_animation_markup = $('<div class="background-fade"><div class="dots">Loading...</div></div>');
 
   // Handle the file uploaded by Dropzone
   Dropzone.autoDiscover = false;
@@ -16,8 +16,10 @@
   dz_screenshot.on("processing", function() {
     if ($('.dots').length === 0) {
         $(throbber_animation_markup).appendTo('body');
+        $('.background-fade').fadeToggle();
+
     } else {
-      $('.dots').css('display', 'block');
+      $('.dots').fadeToggle();
     }
   });
 
@@ -30,7 +32,8 @@
       $('.uploaded-image').attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
       $('#screenshot-upload img').last().attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
      // console.log($('.uploaded-image').attr("src"));
-      $('.dots').css('display', 'none');
+      $('.dots, .background-fade').fadeToggle();
+
       $('.dropdown.upload').toggleClass('open');
       //$('#import-orbs').trigger("click"); 
 
