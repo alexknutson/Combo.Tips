@@ -23,7 +23,7 @@
 
   dz_screenshot.on("complete", function(file) {
     $.ajax({
-    url: '/images/uploads/' + file.name,
+    url: '/images/uploads/Puzzle-Dragons-Combo-Tips-' + file.name,
     // Double check to make sure the file is there before we attach the src to the canvas image
     complete: function(){
       
