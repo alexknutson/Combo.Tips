@@ -113,27 +113,24 @@
       #controls {
       position: absolute;
       left: 20px;
-      top: 360px;
+      top: 346px;
       width: 380px;
       text-align: center;
       line-height: 2em;
       }
       #extra-controls {
       position: absolute;
-      left: 40px;
-      top: 480px;
+      left: 37px;
+      top: 459px;
       z-index: 9999;
       }
       #solve {
-      width: 180px;
-      height: 40px;
-      font-size: 1.25em;
+      min-width: 350px;
+      font-size: 2.25em;
       font-weight: bold;
       }
       #status {
-      position: absolute;
-      top: 520px;
-      left: 100px;
+
       }
       #solutions {
       position: absolute;
@@ -409,6 +406,11 @@ border: 1px solid rgba(0,0,0,0.09);
         width: auto !important;
         color: black;
       }
+      #extra-controls select, #extra-controls input {
+        width: 108px;
+        margin-bottom: 10px;
+        padding: 8px 10px;
+      }
 
     </style>
   </head>
@@ -418,7 +420,6 @@ border: 1px solid rgba(0,0,0,0.09);
  <input type="submit" name="submit" value="Upload"/>
  </form> -->
 
-         <p id="status">...</p>
     <canvas id="path" width="380" height="316"></canvas>
     <div id="grid">
       <div id="o00" class="row1"></div>
@@ -534,9 +535,11 @@ border: 1px solid rgba(0,0,0,0.09);
         <option value="0,1,2,3,4,5" selected="selected">5 + Heal</option>
         <option value="0,1,2,3,4,5,6">All</option>
       </select>
+      <br>
       <input class="btn btn-default" type="button" value="Randomize" id="randomize"/> &bull;
       <input class="btn btn-default" type="button" value="Clear" id="clear"/> &bull;
       <input class="btn btn-default" type="button" value="Import" id="import"/> &bull;
+      <br>
       <input class="btn btn-default" type="button" value="Change orbs" id="change"/>
     </div>
     <div id="hand"></div>
@@ -584,7 +587,8 @@ border: 1px solid rgba(0,0,0,0.09);
         <div class="col-md-4">
           <!-- <h1>.col-md-4</h1> -->
           <div id="solutions">
-
+            <p id="are-you-ready">Ready for tips?</p>
+            <p id="status">...</p>
             <ol></ol>
           </div>
         </div>
@@ -1215,6 +1219,7 @@ border: 1px solid rgba(0,0,0,0.09);
               global_board = board;
               solver_button.disabled = true;
               solve_board(board, function(p, max_p) {
+                  $('#are-you-ready').remove();
                   $('#status').text('Solving (' + p + '/' + max_p + ')...');
               }, function(solutions) {
                   var html_array = [];
