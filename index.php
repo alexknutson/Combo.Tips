@@ -33,6 +33,9 @@
       .navbar-nav > li > a {
         line-height: 1.42857143;
       }
+      .row {
+        margin-right: 0;
+      }
 
       @font-face {
       font-family: PnDIcons;
@@ -116,7 +119,7 @@
       position: absolute;
       left: 40px;
       top: 480px;
-      z-index: 10000;
+      z-index: 9999;
       }
       #solve {
       width: 180px;
@@ -159,8 +162,7 @@
       top: 190px;
       }
       #change-popup {
-      width: 150px;
-      height: 430px;
+      width: 190px;
       top: 65px;
       left: 450px;
       font-size: 30px;
@@ -176,9 +178,13 @@
       letter-spacing: 28px;
       }
       #import-control, #change-control {
-      position: absolute;
       right: 20px;
       bottom: 20px;
+      }
+      #change-control input {
+        width: 100%;
+        display: inline-block;
+        margin-top: 13px;
       }
       #import-import, #change-change { font-weight: bold; }
       .change-target { cursor: pointer; }
@@ -251,15 +257,21 @@
       .dz-details{
         width: 100% !important;
         height: auto !important;
+        float: left;
+        top: -90px;
+        padding: 0px !important;
       }
       .dz-message {
         transform: scale(0.5);
       }
       .dz-image-preview {
-        width: 20% !important;
+        width: 90% !important;
         cursor: pointer !important;
         display: block !important;
         float: left;
+        max-height: 86px;
+        overflow:hidden;
+        padding: 0px !important;
       }
       .dz-image-preview:hover {
         
@@ -268,12 +280,13 @@
         position:relative !important;
         width: 100% !important;
         height: auto !important;
+        opacity: 1 !important;
+        cursor: default !important;
+      }
+      .dz-details img:hover {
       }
       .dz-filename {
         display: none !important;
-      }
-      .dropzone.dz-clickable * {
-        cursor: pointer !important;
       }
       .list-float-left {
         width: 40%;
@@ -328,6 +341,7 @@ border: 1px solid rgba(0,0,0,0.09);
         background-color: darkgrey;
         outline: 1px solid slategrey;
       }
+
       @media (min-width: 768px) {
       .navbar-brand {
         font-size: 132% !important;
@@ -353,6 +367,40 @@ border: 1px solid rgba(0,0,0,0.09);
         top: 0;
         display: none;
       }
+      }
+      body .modal-backdrop {
+        background-color: black !important;
+        opacity: 0.8 !important;
+        display:none;
+      }
+      .navbar-fixed-bottom {
+        z-index: 9999;
+      }
+      #bitcoin-donate-msg {
+        position: relative;
+        top: -27px;
+        right: 5px;
+        padding: 5px;
+        border-top-left-radius: 9px;
+        border-bottom-left-radius: 9px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+      .support-tag {
+        color: orange;
+      }
+      .secondary-navbar-bottom {
+        position: fixed;
+        display: block;
+        bottom: 65px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.7);
+        width: 100%;
+        background-color: rgba(0,0,0,0.9);
+        padding-left: 9px;
+        padding-top: 13px;
+      }
+
     </style>
   </head>
   <body>
@@ -463,7 +511,7 @@ border: 1px solid rgba(0,0,0,0.09);
       <label for="allow-8">Allow 8-direction movement</label><br />
       <label for="max-length">Max path length</label>
       <input id="max-length" value="16" size="3"/><br />
-      <input class="btn btn-default" type="button" value="Solve" id="solve"/>
+      <input class="btn btn-primary" type="button" value="Solve" id="solve"/>
     </div>
     <div id="extra-controls">
       <input class="btn btn-default" type="button" value="Drop matches" id="drop"/> &bull;
@@ -510,8 +558,8 @@ border: 1px solid rgba(0,0,0,0.09);
         <span class="eX"></span> &rarr; <span class="eX change-target"></span>
       </div>
       <div id="change-control">
-        <input type="button" value="Cancel" id="change-cancel"/>
-        <input type="button" value="Change" id="change-change"/>
+        <input type="button" value="Cancel" class="btn btn-danger" id="change-cancel"/>
+        <input type="button" value="Change" class="btn btn-success" id="change-change"/>
       </div>
     </div>
     <div class="container-fluid" style="padding: 0 2%;">
@@ -557,18 +605,19 @@ border: 1px solid rgba(0,0,0,0.09);
             
             <span class="glyphicon glyphicon-question-sign"> </span><span>Click the image to import</span>
             </li>
-            <li class="list-float-right"><a href="#"><form id="screenshot-upload" action="upload.php" class="dropzone">
-
-    </form></a></li>
-            <li class="divider"></li>
-            <li class="divider">
-            
+            <li class="list-float-right">
+            <a href="#">
+              <form id="screenshot-upload" action="upload.php" class="dropzone">
+              </form>
+            </a>
             </li>
+            <li class="divider"></li>
+            <li class="divider"></li>
             <li><a id="keep-open" href="#">
             <form role="form">
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Don't close this window!
+                <input type="checkbox"> Don't close this window!</input>
               </label>
               </form>
             </div></a></li>
@@ -578,7 +627,10 @@ border: 1px solid rgba(0,0,0,0.09);
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<span style="position: fixed; display: block; bottom: 55px; left: 10px; font-size: 13px; color: rgba(255,255,255,0.7);">Alpha 1.3</span>
+<span class="secondary-navbar-bottom">
+<span id="bitcoin-donate-msg"><span class="support-tag">Support</span> the project <span class="glyphicon glyphicon-arrow-right"></span></span>
+<a class="coinbase-button" data-code="df278ca7d92b2380ca3d3757ed5f6132" data-button-style="donation_small" href="https://coinbase.com/checkouts/df278ca7d92b2380ca3d3757ed5f6132">Donate Bitcoins</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
+</span>
     <script src="/ext/easeljs-0.7.1.min.js"></script>
     <script src="/ext/main.js"></script>
     <script>
