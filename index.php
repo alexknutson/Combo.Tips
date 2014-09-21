@@ -403,6 +403,10 @@ border: 1px solid rgba(0,0,0,0.09);
         padding-left: 9px;
         padding-top: 13px;
       }
+      #max-length {
+        width: auto !important;
+        color: black;
+      }
 
     </style>
   </head>
@@ -489,8 +493,8 @@ border: 1px solid rgba(0,0,0,0.09);
           <td><input id="e6-mass" value="0.1"/></td>
         </tr>
       </table>
-      <p>
-        Profile: 
+      <p><br>
+        Profile:<br> 
         <select class="btn btn-default"  id="profile-selector">
           <option value="1,3,1,3,1,3,1,3,1,3,0.3,0.3,0.1,0.1" selected="selected">5-color team, multiple target</option>
           <option value="1,1,1,1,1,1,1,1,1,1,0.3,0.3,0.1,0.1">5-color team, single target</option>
@@ -507,13 +511,15 @@ border: 1px solid rgba(0,0,0,0.09);
           <option value="0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,1,3,0.3,0.3,0.1,0.1">Dark team, multiple target</option>
           <option value="0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,1,1,0.3,0.3,0.1,0.1">Dark team, single target</option>
         </select>
+        <br>
+        <br>
+      <label for="max-length">Max path length:</label>
+      <input id="max-length" value="16" size="3"/><br />
       </p>
     </div>
     <div id="controls">
       <input type="checkbox" id="allow-8"/>
       <label for="allow-8">Allow 8-direction movement</label><br />
-      <label for="max-length">Max path length</label>
-      <input id="max-length" value="16" size="3"/><br />
       <input class="btn btn-primary" type="button" value="Solve" id="solve"/>
     </div>
     <div id="extra-controls">
