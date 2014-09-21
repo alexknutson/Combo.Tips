@@ -200,10 +200,12 @@
         top: 0px;
         right: 0px;
         bottom: 0px;
-        left: 0px;
+        left: 14px;
         overflow: auto;
         padding: 5%;
         background-color:rgba(0,0,0,0.35);
+        width: 100%;
+        margin-top: 26px; 
       }
       #solutions:hover li {
         padding-left: 11px;
