@@ -3,6 +3,7 @@
 */
 
 (function($) {
+  var thumbnail_invert = false;
 
   var throbber_animation_markup = $('<div class="background-fade"><div class="dots">Loading...</div></div>');
 
@@ -10,6 +11,8 @@
   Dropzone.autoDiscover = false;
   var dz_screenshot = new Dropzone("#screenshot-upload", {
     acceptedFiles:"image/*",
+    clickable: true,
+    uploadMultiple: false,
     
   });
 
@@ -25,34 +28,29 @@
 
   dz_screenshot.on("complete", function(file) {
     $.ajax({
-    url: '/images/uploads/Puzzle-Dragons-Combo-Tips-' + file.name,
-    // Double check to make sure the file is there before we attach the src to the canvas image
-    complete: function(){
-      
-      $('.uploaded-image').attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
-      $('#screenshot-upload img').last().attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
-     // console.log($('.uploaded-image').attr("src"));
-      if ($('.dots').css('display') !== 'none' && $('.background-fade').css('display') !== 'none') {
-       $('.dots, .background-fade').promise().done(function(){
-        $(this).fadeToggle();
-       }); 
-      }
-
-      $('.dropdown.upload').toggleClass('open');
-      //$('#import-orbs').trigger("click"); 
-
-      //console.log($('.upload-image'));
-      //$('#screenshot-upload').first('img').attr("src", "/images/uploads/" + file.name);
-      //console.log(($('#uploaded-image').find('img')));
-    }, 
-
-    
+      url: '/images/uploads/Puzzle-Dragons-Combo-Tips-' + file.name,
+      // Double check to make sure the file is there before we attach the src to the canvas image
+      complete: function(){
+        $('.uploaded-image').attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
+        $('#screenshot-upload img').last().attr("src", "/images/uploads/Puzzle-Dragons-Combo-Tips-" + file.name);
+        // Insert the newly uploaded thumbnail as the first item in the list
+        $('.dz-success.dz-image-preview').last().insertBefore($('.dz-success.dz-image-preview').first());
+        // Limit the thumbnails so that we only show the last 3 uploaded files.
+        if ($('.dz-success.dz-image-preview').length > 3) {
+          $('.dz-success.dz-image-preview').last().remove();
+        }
+        // If the dots throbber is showing, turn it off when the background fade is complete.
+        if ($('.dots').css('display') !== 'none' && $('.background-fade').css('display') !== 'none') {
+          $('.dots, .background-fade').promise().done(function(){
+            $(this).fadeToggle();
+          }); 
+        }
+        // Open the menu
+        $('.dropdown.upload').toggleClass('open');
+      }, 
     });
-
-
-      //$(document).initImageAnalysis();
-
   });
+
   //$(document).ajaxComplete(function(event, xhr, settings) {
     //console.log(event);
     //console.log(xhr);
