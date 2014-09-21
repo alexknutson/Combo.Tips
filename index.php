@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-<meta name="viewport" content="width=750, user-scalable=yes">
-    <title>Puzzle &amp; Dragons optimizer</title>
+  <meta name="viewport" content="width=750, user-scalable=yes">
+  <link rel="icon" 
+      type="image/png" 
+      href="/images/favicon.ico">  
+  <title>Combo Tips - The Puzzle &amp; Dragons optimizer</title>
     <script src="/ext/jquery-1.9.1.min.js"></script>
     <script src="/ext/dropzone.min.js"></script>
 
@@ -543,7 +546,7 @@ border: 1px solid rgba(0,0,0,0.09);
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-tower"></span> Combo.Tips</a>
+      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-tower"></span> Combo.Tips (Alpha)</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
