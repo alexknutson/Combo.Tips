@@ -3,6 +3,12 @@
 */
 
 (function($) {
+
+  // Tooltip
+$('a[data-toggle="tooltip"]').tooltip({
+    animated: 'fade',
+    placement: 'bottom',
+});
   var thumbnail_invert = false;
 
   var throbber_animation_markup = $('<div class="background-fade"><div class="dots">Loading...</div></div>');
