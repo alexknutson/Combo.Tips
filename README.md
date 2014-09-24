@@ -1,7 +1,7 @@
 pndopt --- Puzzle & Dragons Optimizer
 =====================================
 
-![Screenshot](screenshot.png)
+![Screenshot](combo-tips-example.gif)
 
 `pndopt` is a Javascript application to find an optimal path leading to a high-combo move in Puzzle & Dragons.
 
