@@ -4,6 +4,14 @@
 
 (function($) {
 
+  $(document).on('ready', function() {
+    // Enable slider for Path Number Scaling
+    $('#num-paths').slider()
+    .on('slide', function(ev){
+      $('#num-path-value').val(ev.value);
+    });
+  });
+
   // Tooltip
 $('a[data-toggle="tooltip"]').tooltip({
     animated: 'fade',
