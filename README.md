@@ -1,4 +1,4 @@
-pndopt --- Puzzle & Dragons Optimizer
+Combo Tips --- Puzzle & Dragons Optimizer- Rebooted
 =====================================
 
 ![Screenshot](combo-tips-example.gif)
