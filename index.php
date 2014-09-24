@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <meta name="viewport" content="width=750, user-scalable=yes">
+  <meta name="viewport" content="width=680, user-scalable=yes">
   <link rel="icon" 
       type="image/png" 
       href="/images/favicon.ico">  
   <title>Combo Tips - The Puzzle &amp; Dragons optimizer</title>
     <script src="/ext/jquery-1.9.1.min.js"></script>
     <script src="/ext/dropzone.min.js"></script>
+    <script src="/ext/bootstrap-slider.min.js"></script>
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -29,6 +30,7 @@
 <link rel="stylesheet" type="text/css" href="css/dropzone.css">
 <link rel="stylesheet" type="text/css" href="css/throbber.css">
 <link rel="stylesheet" type="text/css" href="css/border-flash.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-slider.min.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <meta charset="utf-8"/>
 <style>
@@ -398,9 +400,17 @@ border: 1px solid rgba(0,0,0,0.09);
         padding-left: 9px;
         padding-top: 13px;
       }
-      #max-length, #num-paths {
+      #max-length {
         width: auto !important;
         color: black;
+      }
+      #num-path-value {
+        color: black;
+        display: block;
+        padding: 7px;
+        border-radius: 90px;
+        border: 0px;
+        font-size: 14px;
       }
       #extra-controls select, #extra-controls input {
         width: 108px;
@@ -428,7 +438,7 @@ border: 1px solid rgba(0,0,0,0.09);
         font-size:3.5em;
       }
 
-      .slider{
+      .sliderOMG{
         position:absolute;
         width:400px;
         height:2px;
@@ -490,6 +500,9 @@ border: 1px solid rgba(0,0,0,0.09);
         from { left: 0; }
         to { left: 400px; }
       }
+      .slider {
+      }
+
 
     </style>
   </head>
@@ -597,9 +610,9 @@ border: 1px solid rgba(0,0,0,0.09);
         <tr class="center-text">
             <th></th>
             <th><a data-toggle="tooltip" title="Normal"><i class="glyphicon glyphicon-question-sign"></i></a></th>
+            <th><a data-toggle="tooltip" title="Mass"><i class="glyphicon glyphicon-question-sign"></i></a></th>
             <th><a data-toggle="tooltip" title="Row Awkns"><i class="glyphicon glyphicon-question-sign"></i></a></th>
-            <th><a data-toggle="tooltip" title="Put the additional weight coming from TPAs. E.g. If you have 3 monsters with 1k green attack and one has a TPA and ones has two TPA, the base weight is 3 and the TPA effect is 1*1.5 for the single TPA (.5 extra) and 1*1.5*1.5 = 2.25 (1.25 extra) for the double TPA so you enter 1.75."><i class="glyphicon glyphicon-question-sign"></i></a></th>
-            <th><a data-toggle="tooltip" title="TPA Weight"><i class="glyphicon glyphicon-question-sign"></i></a></th>
+            <th><a data-toggle="tooltip" title="TPA Weight - Put the additional weight coming from TPAs. E.g. If you have 3 monsters with 1k green attack and one has a TPA and ones has two TPA, the base weight is 3 and the TPA effect is 1*1.5 for the single TPA (.5 extra) and 1*1.5*1.5 = 2.25 (1.25 extra) for the double TPA so you enter 1.75."><i class="glyphicon glyphicon-question-sign"></i></a></th>
         </tr>
     </table>
       <p><br>
@@ -836,9 +849,11 @@ border: 1px solid rgba(0,0,0,0.09);
       <label for="max-length">Max path length:</label>
       <input id="max-length" value="20" size="3"/><br /><br />
       <label for="num-paths">Path Number Scaling</label>
-      <input id="num-paths" value="250" size="3"/>
-      <br />
-      <em style="display: block; margin-top: 4px;"><span style="color: rgb(93,167,102)" class="glyphicon glyphicon-question-sign"></span>  larger: longer computation, better solutions</em>
+      <input type="text" value="100" id="num-path-value">
+      <br>
+      <!-- <input id="num-paths" value="100" size="3"/> -->
+      <input type="text" id="num-paths" class="span2" value="" data-slider-min="10" data-slider-max="400" data-slider-step="10" data-slider-value="100" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
+      <em style="display: block; margin-top: 4px;"><span style="color: rgb(93,167,102)" class="glyphicon glyphicon-arrow-up"></span>  larger: longer computation, better solutions</em>
       </p>
     </div>
     <div id="controls">
@@ -912,7 +927,7 @@ border: 1px solid rgba(0,0,0,0.09);
           <div class="loading-throbber">
           <span id="status">...</span>
           </span>
-            <div class="slider">
+            <div class="sliderOMG">
             <div class="line"></div>
             <div class="break dot1"></div>
             <div class="break dot2"></div>
