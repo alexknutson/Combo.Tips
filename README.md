@@ -1,7 +1,7 @@
-pndopt --- Puzzle & Dragons Optimizer
+Combo Tips --- Puzzle & Dragons Optimizer- Rebooted
 =====================================
 
-![Screenshot](screenshot.png)
+![Screenshot](combo-tips-example.gif)
 
 `pndopt` is a Javascript application to find an optimal path leading to a high-combo move in Puzzle & Dragons.
 
@@ -20,7 +20,7 @@ Requirements
 ------------
 
 * Firefox (version 19 or above).
-* Screen resolution of 1280×800 or above.
+* ~~Screen resolution of 1280×800 or above.~~ (Now works on mobile)
 
 It may work in other configurations but I don't guarantee it will work ☺.
 
