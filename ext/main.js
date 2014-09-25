@@ -8,7 +8,30 @@
     // Enable slider for Path Number Scaling
     $('#num-paths').slider()
     .on('slide', function(ev){
+      
+      var $path_value_input = $(this).siblings('#num-path-value');
       $('#num-path-value').val(ev.value);
+      if (ev.value <= 120) {
+       $path_value_input.removeClass('medium slow');
+       $path_value_input.addClass('fast');
+      }
+      if (ev.value > 120 && ev.value <= 250) {
+        $path_value_input.removeClass('fast slow');
+        $path_value_input.addClass('medium');
+      }
+      if (ev.value > 250) {
+        $path_value_input.removeClass('fast medium');
+        $path_value_input.addClass('slow');
+      }
+      if (ev.value > 300) {
+        if ($('.slow-warning').length === 0) {
+        $('<p class="slow-warning">This might take a while...</p>').insertAfter($path_value_input);
+      } else {
+        $('.slow-warning').removeClass('hide');
+      }
+      } else {
+        $('.slow-warning').addClass('hide');
+      }
     });
   });
 

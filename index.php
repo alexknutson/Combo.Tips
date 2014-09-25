@@ -404,13 +404,41 @@ border: 1px solid rgba(0,0,0,0.09);
         width: auto !important;
         color: black;
       }
+      label[for=num-paths] {
+        float: left;
+        padding-right: 5px;
+      }
+      .slow-warning {
+        color: white;
+        display: block;
+        float: left;
+        clear: both;
+      }
       #num-path-value {
-        color: black;
+        color: white;
+        float: left;
+        font-weight: bold;
         display: block;
         padding: 7px;
         border-radius: 90px;
-        border: 0px;
+        border: 1px solid black;
         font-size: 14px;
+        position: relative;
+        top: -6px;
+        left: 6px;
+        text-align: center;
+      }
+      #num-path-value.fast {
+        background-color: rgb(106, 156, 90);
+      }
+      #num-path-value.medium {
+        background-color: rgb(206, 151, 69);
+      }
+      #num-path-value.slow {
+        background-color: rgb(255,71,71);
+        border: 1px solid black;
+        font-weight: bold;
+        color: white;
       }
       #extra-controls select, #extra-controls input {
         width: 108px;
@@ -849,7 +877,7 @@ border: 1px solid rgba(0,0,0,0.09);
       <label for="max-length">Max path length:</label>
       <input id="max-length" value="20" size="3"/><br /><br />
       <label for="num-paths">Path Number Scaling</label>
-      <input type="text" value="100" id="num-path-value">
+      <input type="text" value="100" id="num-path-value" class="fast">
       <br>
       <!-- <input id="num-paths" value="100" size="3"/> -->
       <input type="text" id="num-paths" class="span2" value="" data-slider-min="10" data-slider-max="400" data-slider-step="10" data-slider-value="100" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
