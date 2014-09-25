@@ -1,7 +1,11 @@
-Combo Tips --- Puzzle & Dragons Optimizer- Rebooted
+# Combo Tips
+
+#### Puzzle & Dragons Optimizer- Rebooted
+
 =====================================
 
-![Screenshot](combo-tips-example.gif)
+[![Animated Example](combo-tips-example.gif)](http://combo.tips)
+
 
 `pndopt` is a Javascript application to find an optimal path leading to a high-combo move in Puzzle & Dragons.
 
@@ -13,8 +17,9 @@ Usage
 -----
 
 1. Left or right click on an orb to select its type.
-2. Click "Solve" after completing the board.
-3. Choose one solution and see how it is performed.
+2. Upload from screenshot to quickly fill out the board. 
+3. Click "Solve" after completing the board.
+4. Choose one solution and see how it is performed.
 
 Requirements
 ------------
