@@ -2,7 +2,12 @@
 <html>
   <head>
   <meta name="viewport" content="width=680, user-scalable=yes">
-  <link rel="icon" 
+<head>
+<meta name="description" content="Puzzle &amp; Dragons Combo Tips, Tools, and Strategy information for the Puzzle &amp; Dragons Player.">
+<meta name="keywords" content="combo tips, puzzle and dragons, pad, card, game, deck, board, gungho">
+<meta name="language" content="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="icon" 
       type="image/png" 
       href="/images/favicon.ico">  
   <title>Combo Tips - The Puzzle &amp; Dragons optimizer</title>
