@@ -248,6 +248,8 @@ $('a[data-toggle="tooltip"]').tooltip({
         var isLikeDark = false;
         var isLikeHeart = false;
 
+        var found_color = false;
+
         var imgEl = createjs.SpriteSheetUtils.extractFrame(spriteSheet, numx);
         var imageColor = $(document).getAverageRGB(imgEl);
         var red_value = imageColor.r;
@@ -262,48 +264,50 @@ $('a[data-toggle="tooltip"]').tooltip({
             if (color_top_range(orb.green) > fire_rgb_default[1] && fire_rgb_default[1] > color_bottom_range(orb.green)) {
               if (color_top_range(orb.blue) > fire_rgb_default[2] && fire_rgb_default[2] > color_bottom_range(orb.blue)) {
                 isLikeFire = true;
+                found_color = true;
               }
             }
           }
-          if (color_top_range(orb.red) > water_rgb_default[0] && water_rgb_default[0] > color_bottom_range(orb.red)) {
+          if (color_top_range(orb.red) > water_rgb_default[0] && water_rgb_default[0] > color_bottom_range(orb.red) && found_color == false) {
             if (color_top_range(orb.green) > water_rgb_default[1] && water_rgb_default[1] > color_bottom_range(orb.green)) {
               if (color_top_range(orb.blue) > water_rgb_default[2] && water_rgb_default[2] > color_bottom_range(orb.blue)) {
                 isLikeWater = true;
+                found_color = true;
               }
             }
           }
-          if (color_top_range(orb.red) > wood_rgb_default[0] && wood_rgb_default[0] > color_bottom_range(orb.red)) {
+          if (color_top_range(orb.red) > wood_rgb_default[0] && wood_rgb_default[0] > color_bottom_range(orb.red) && found_color == false) {
             if (color_top_range(orb.green) > wood_rgb_default[1] && wood_rgb_default[1] > color_bottom_range(orb.green)) {
               if (color_top_range(orb.blue) > wood_rgb_default[2] && wood_rgb_default[2] > color_bottom_range(orb.blue)) {
                 isLikeWood = true;
+                found_color = true;
               }
             }
           }
-          if (color_top_range(orb.red) > light_rgb_default[0] && light_rgb_default[0] > color_bottom_range(orb.red)) {
+          if (color_top_range(orb.red) > light_rgb_default[0] && light_rgb_default[0] > color_bottom_range(orb.red) && found_color == false) {
             if (color_top_range(orb.green) > light_rgb_default[1] && light_rgb_default[1] > color_bottom_range(orb.green)) {
               if (color_top_range(orb.blue) > light_rgb_default[2] && light_rgb_default[2] > color_bottom_range(orb.blue)) {
                 isLikeLight = true;
+                found_color = true;
               }
             }
           }
-          if (color_top_range(orb.red) > dark_rgb_default[0] && dark_rgb_default[0] > color_bottom_range(orb.red)) {
-            if (color_top_range(orb.green) > dark_rgb_default[1] && dark_rgb_default[1] > color_bottom_range(orb.green)) {
-              if (color_top_range(orb.blue) > dark_rgb_default[2] && dark_rgb_default[2] > color_bottom_range(orb.blue)) {
-                isLikeDark = true;
-              }
-            }
-          }
-          if (color_top_range(orb.red) > heart_rgb_default[0] && heart_rgb_default[0] > color_bottom_range(orb.red)) {
+          if (color_top_range(orb.red) > heart_rgb_default[0] && heart_rgb_default[0] > color_bottom_range(orb.red) && found_color == false) {
             if (color_top_range(orb.green) > heart_rgb_default[1] && heart_rgb_default[1] > color_bottom_range(orb.green)) {
               if (color_top_range(orb.blue) > heart_rgb_default[2] && heart_rgb_default[2] > color_bottom_range(orb.blue)) {
                 isLikeHeart = true;
+                found_color = true;
               }
             }
           }
-
-
-
-
+          if (color_top_range(orb.red) > dark_rgb_default[0] && dark_rgb_default[0] > color_bottom_range(orb.red) && found_color == false) {
+            if (color_top_range(orb.green) > dark_rgb_default[1] && dark_rgb_default[1] > color_bottom_range(orb.green)) {
+              if (color_top_range(orb.blue) > dark_rgb_default[2] && dark_rgb_default[2] > color_bottom_range(orb.blue)) {
+                isLikeDark = true;
+                found_color = true;
+              }
+            }
+          }
 
         }
 
