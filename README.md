@@ -3,11 +3,9 @@
 #### Puzzle & Dragons Optimizer- Rebooted
 
 =====================================
-<p align="center">
 
 [![Animated Example](combo-tips-example.gif)](http://combo.tips)
 
-</p>
 
 Usage
 -----
