@@ -184,16 +184,7 @@ $('a[data-toggle="tooltip"]').tooltip({
     var orb_frame_height = (image_height * .0905555);
     
     var uploaded_image_url = $(image_object).attr('src');
-    //console.log(uploaded_image_url);
-    
-    //var xhr = new XMLHttpRequest();
-    //xhr.open("get", uploaded_image_url, true);
-    //xhr.onload = function(){
-      //console.log('we got the url with xhr');
-    //};
-    //xhr.send(null);
-    //xhr.abort();
-    //console.log(xhr);
+  
     // @images: The image url we're going to break up into tiny frames
     // @frames: the size of each square frame that we will analyze for RGB values
     var data = {
@@ -333,48 +324,6 @@ $('a[data-toggle="tooltip"]').tooltip({
         } else {
           orbs_found.push('eX');
         }
-        
-
-
-        /** OLD WAY
-        console.log('--');
-        // LIGHT ORBS
-        if (orb.red < 175 && orb.red > 135 && orb.green > 120 && orb.green < 175) {
-          orbs_found.push("e3");
-          console.log('light');
-        }
-        // HEART ORBS
-        if (orb.red < 185 && orb.red > 150 && orb.green > 70 && orb.green < 110 && orb.blue < 145 && orb.blue > 100) {
-          orbs_found.push("e5");
-          console.log('heart');
-        }
-        // DARK ORBS
-        if (orb.red < 160 && orb.red > 105 && orb.green < 110 && orb.green > 60 && orb.blue < 155 && orb.blue > 110) {
-          orbs_found.push("e4");
-          console.log('dark');
-        }
-        // WOOD ORBS
-        if (orb.red < 120 && orb.red > 65 && orb.green < 170 && orb.green > 125 && orb.blue < 130 && orb.blue > 75) {
-          orbs_found.push("e2");
-          console.log('wood');
-        }
-        // FIRE ORBS
-        if (orb.red < 210 && orb.red > 150 && orb.green < 125 && orb.green > 75 && orb.blue < 120 && orb.blue > 50) {
-          orbs_found.push("e0");
-          console.log('fire');
-        }
-        // WATER ORBS
-        if (orb.red < 135 && orb.red > 75 && orb.green < 155 && orb.green > 105 && orb.blue < 195 && orb.blue > 135) {
-          orbs_found.push("e1");
-          console.log('water');
-        }
-        console.log(orb.red);
-        console.log(orb.green);
-        console.log(orb.blue);
-        console.log('--');
-        //orbs_found.push(orb);
-        **/
-
       }
     }
     $('#grid > div').each(function(index) {
