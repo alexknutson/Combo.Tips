@@ -219,16 +219,15 @@
         background: rgb(60,60,60);
         padding: 20px 11px;
       }
-#screenshot-upload {
-
-  display: block;
-  background-color: white;
-  border: 1px solid black;
-}
-.uploaded-image {
-  display: block;
-  cursor: pointer;
-  width: 100%;
+      #screenshot-upload {
+  	display: block;
+  	background-color: white;
+  	border: 1px solid black;
+      }
+      .uploaded-image {
+      	display: block;
+  	cursor: pointer;
+  	width: 100%;
       }
       .dots {
         position: fixed !important;
@@ -240,7 +239,6 @@
       .navbar-right .upload ul {
         width: 550px;
       }
-
       .uploaded-image {
 
       }
@@ -319,7 +317,7 @@
       #keep-open {
         background-color: rgba(158,190,149,1);
         color: black;
-border: 1px solid rgba(0,0,0,0.09);
+	border: 1px solid rgba(0,0,0,0.09);
       }
       #keep-open:hover {
         background-color: rgba(208, 224, 203, 1);
