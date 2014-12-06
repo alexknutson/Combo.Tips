@@ -88,12 +88,6 @@ $('a[data-toggle="tooltip"]').tooltip({
     });
   });
 
-  //$(document).ajaxComplete(function(event, xhr, settings) {
-    //console.log(event);
-    //console.log(xhr);
-    //console.log($('.uploaded-image').attr("src"));
-    ////$(document).initImageAnalysis();
-  //});
   // ##### IMGUR SOLUTION. NOT BEING USED
 //$('#imgur_upload').on('submit', function(e){
       //e.preventDefault();
