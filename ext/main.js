@@ -41,7 +41,10 @@
   $(window).on('load resize', function(){
     var width = $(window).width();
     if (width < 1030 && !$('#disqus_thread').hasClass('repositioned')) {
-      $('#disqus_thread').addClass('collapse').css({margin: 0, maxWidth: '97%'});
+      $('#disqus_thread').hide().css({margin: 0, maxWidth: '97%'});
+      $('.glyphicon-heart-empty').on('click', function() {
+       $('#disqus_thread').slideToggle();
+      });
       $('#solutions').css('z-index', 1);
       $('.secondary-navbar-bottom').css('z-index', 2);
       $('.secondary-navbar-bottom').append($('#disqus_thread').addClass('repositioned'));
