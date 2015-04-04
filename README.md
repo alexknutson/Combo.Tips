@@ -7,12 +7,6 @@
 [![Animated Example](combo-tips-example.gif)](http://combo.tips)
 
 
-`pndopt` is a Javascript application to find an optimal path leading to a high-combo move in Puzzle & Dragons.
-
-Only use it in emergency ☺!
-
-*(Yes I knew there were [Big Combo](http://www.fonescience.com/bigcombo/) and [Path & Decision](http://pnd.cubeforge.net/), but the former is gone and I'm unsatisfied with the result of the latter.)*
-
 Usage
 -----
 
@@ -23,8 +17,6 @@ Usage
 
 Requirements
 ------------
-
-* Firefox (version 19 or above).
 * ~~Screen resolution of 1280×800 or above.~~ (Now works on mobile)
 
 It may work in other configurations but I don't guarantee it will work ☺.

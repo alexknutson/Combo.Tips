@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+<<<<<<< HEAD
     <meta name="viewport" content="width=680, user-scalable=yes">
     <head>
       <meta name="description" content="Puzzle &amp; Dragons Combo Tips, Tools, and Strategy information for the Puzzle &amp; Dragons Player.">

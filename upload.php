@@ -6,7 +6,7 @@ if(isset($_POST['submit'])){
   echo "<h2>An Image Please.</h2>";
  }else{
   $filename = $img['tmp_name'];
-  $client_id="a1754084e55a7ca";
+  $client_id="[INSERT CLIENT ID HERE]";
   $handle = fopen($filename, "r");
   $data = fread($handle, filesize($filename));
   $pvars   = array('image' => base64_encode($data));

@@ -101,12 +101,6 @@
     });
   });
 
-  //$(document).ajaxComplete(function(event, xhr, settings) {
-  //console.log(event);
-  //console.log(xhr);
-  //console.log($('.uploaded-image').attr("src"));
-  ////$(document).initImageAnalysis();
-  //});
   // ##### IMGUR SOLUTION. NOT BEING USED
   //$('#imgur_upload').on('submit', function(e){
   //e.preventDefault();
@@ -197,16 +191,7 @@
     var orb_frame_height = (image_height * .0905555);
 
     var uploaded_image_url = $(image_object).attr('src');
-    //console.log(uploaded_image_url);
 
-    //var xhr = new XMLHttpRequest();
-    //xhr.open("get", uploaded_image_url, true);
-    //xhr.onload = function(){
-    //console.log('we got the url with xhr');
-    //};
-    //xhr.send(null);
-    //xhr.abort();
-    //console.log(xhr);
     // @images: The image url we're going to break up into tiny frames
     // @frames: the size of each square frame that we will analyze for RGB values
     var data = {
@@ -347,8 +332,6 @@
           orbs_found.push('eX');
         }
 
-
-
         /** OLD WAY
         console.log('--');
         // LIGHT ORBS
@@ -387,7 +370,6 @@
         console.log('--');
         //orbs_found.push(orb);
         **/
-
       }
     }
     $('#grid > div').each(function(index) {
