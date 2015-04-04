@@ -1,19 +1,19 @@
-/** 
+/**
  * Main js file for Combo.Tips
-*/
+ */
 
 (function($) {
 
   $(document).on('ready', function() {
     // Enable slider for Path Number Scaling
     $('#num-paths').slider()
-    .on('slide', function(ev){
-      
+      .on('slide', function(ev){
+
       var $path_value_input = $(this).siblings('#num-path-value');
       $('#num-path-value').val(ev.value);
       if (ev.value <= 120) {
-       $path_value_input.removeClass('medium slow');
-       $path_value_input.addClass('fast');
+        $path_value_input.removeClass('medium slow');
+        $path_value_input.addClass('fast');
       }
       if (ev.value > 120 && ev.value <= 250) {
         $path_value_input.removeClass('fast slow');
@@ -25,21 +25,34 @@
       }
       if (ev.value > 300) {
         if ($('.slow-warning').length === 0) {
-        $('<p class="slow-warning">This might take a while...</p>').insertAfter($path_value_input);
-      } else {
-        $('.slow-warning').removeClass('hide');
-      }
+          $('<p class="slow-warning">This might take a while...</p>').insertAfter($path_value_input);
+        } else {
+          $('.slow-warning').removeClass('hide');
+        }
       } else {
         $('.slow-warning').addClass('hide');
       }
     });
   });
 
+  /**
+   * Load + Resize events for mobile adjustments.
+   */
+  $(window).on('load resize', function(){
+    var width = $(window).width();
+    if (width < 1030 && !$('#disqus_thread').hasClass('repositioned')) {
+      $('#disqus_thread').addClass('collapse').css({margin: 0, maxWidth: '97%'});
+      $('#solutions').css('z-index', 1);
+      $('.secondary-navbar-bottom').css('z-index', 2);
+      $('.secondary-navbar-bottom').append($('#disqus_thread').addClass('repositioned'));
+    }
+  });
+
   // Tooltip
-$('a[data-toggle="tooltip"]').tooltip({
+  $('a[data-toggle="tooltip"]').tooltip({
     animated: 'fade',
     placement: 'bottom',
-});
+  });
   var thumbnail_invert = false;
 
   var throbber_animation_markup = $('<div class="background-fade"><div class="dots">Loading...</div></div>');
@@ -50,13 +63,13 @@ $('a[data-toggle="tooltip"]').tooltip({
     acceptedFiles:"image/*",
     clickable: true,
     uploadMultiple: false,
-    
+
   });
 
   dz_screenshot.on("processing", function() {
     if ($('.dots').length === 0) {
-        $(throbber_animation_markup).appendTo('body');
-        $('.dots, .background-fade').fadeIn();
+      $(throbber_animation_markup).appendTo('body');
+      $('.dots, .background-fade').fadeIn();
 
     } else {
       $('.dots, .background-fade').fadeIn();
@@ -80,56 +93,56 @@ $('a[data-toggle="tooltip"]').tooltip({
         if ($('.dots').css('display') !== 'none' && $('.background-fade').css('display') !== 'none') {
           $('.dots, .background-fade').promise().done(function(){
             $(this).fadeToggle();
-          }); 
+          });
         }
         // Open the menu
         $('.dropdown.upload').toggleClass('open');
-      }, 
+      },
     });
   });
 
   //$(document).ajaxComplete(function(event, xhr, settings) {
-    //console.log(event);
-    //console.log(xhr);
-    //console.log($('.uploaded-image').attr("src"));
-    ////$(document).initImageAnalysis();
+  //console.log(event);
+  //console.log(xhr);
+  //console.log($('.uploaded-image').attr("src"));
+  ////$(document).initImageAnalysis();
   //});
   // ##### IMGUR SOLUTION. NOT BEING USED
-//$('#imgur_upload').on('submit', function(e){
-      //e.preventDefault();
-      //console.log('test');
-      //console.log($(this));
-      //var form_data = new FormData(this);
-      //console.log(form_data);
-      //$.ajax({
-            //type: 'POST',
-            //url: $(this).attr('action'),
-            //data: form_data,
-            //cache: false,
-            //contentType: false,
-            //processData: false,
-            //dataType: "json",
-        //})
-        //.done(function(data){
-          //console.log(data);
-          //$('.uploaded-image').attr("src", data.data.link);
+  //$('#imgur_upload').on('submit', function(e){
+  //e.preventDefault();
+  //console.log('test');
+  //console.log($(this));
+  //var form_data = new FormData(this);
+  //console.log(form_data);
+  //$.ajax({
+  //type: 'POST',
+  //url: $(this).attr('action'),
+  //data: form_data,
+  //cache: false,
+  //contentType: false,
+  //processData: false,
+  //dataType: "json",
+  //})
+  //.done(function(data){
+  //console.log(data);
+  //$('.uploaded-image').attr("src", data.data.link);
 
-          //console.log($('.uploaded-image').attr("src"));
-        //})
-        //.fail(function(data) {
-            //var responseText = data.responseText;
-            //console.log(responseText);
-            //console.log(data);
-            //// just in case posting your form failed
-            //console.log( "Posting failed." );
-             
-        //});
+  //console.log($('.uploaded-image').attr("src"));
+  //})
+  //.fail(function(data) {
+  //var responseText = data.responseText;
+  //console.log(responseText);
+  //console.log(data);
+  //// just in case posting your form failed
+  //console.log( "Posting failed." );
+
+  //});
 
   //});
 
   $('.uploaded-image, #import-orbs').on("click", function(event){
     //console.log('clicked image');
-  $(document).initImageAnalysis();
+    $(document).initImageAnalysis();
     ga('send', 'event', 'button', 'click', 'Combo Requested', 1);
   });
 
@@ -152,13 +165,13 @@ $('a[data-toggle="tooltip"]').tooltip({
     // Setup orb array
     var orbs_found = [];
     //console.log('it ran');
-    
+
     //Create a stage by getting a reference to the canvas
     stage = new createjs.Stage("drawCanvas");
     //console.log(stage);
     var image_object = $('.uploaded-image');
     //console.log(image_object);
-    
+
     // Percentages (NOT USED)
     var game_header_height = 55.72;
     var game_header_width = 100;
@@ -167,29 +180,29 @@ $('a[data-toggle="tooltip"]').tooltip({
     // We can't have the analysis run from distorted DOM image values
     //var image_height = $(image_object).height();
     //var image_width = $(image_object).width();
-    
+
     // Instead, use the natural height/width
     var image_height = image_object[0].naturalHeight;
     var image_width = image_object[0].naturalWidth;
 
-   
+
     // if we want to break the algorithm... use these
     //var orb_frame_width = (image_width * .166);
     //var orb_frame_height = (image_height * .0916);
-    
+
     // Mobile phones have a wide variety of screenshot resolutions.
     // So to make sure our analysis works on all of those image sizes, we
     // set the frame size using dynamic width/height values.
     var orb_frame_width = (image_width * .166);
     var orb_frame_height = (image_height * .0905555);
-    
+
     var uploaded_image_url = $(image_object).attr('src');
     //console.log(uploaded_image_url);
-    
+
     //var xhr = new XMLHttpRequest();
     //xhr.open("get", uploaded_image_url, true);
     //xhr.onload = function(){
-      //console.log('we got the url with xhr');
+    //console.log('we got the url with xhr');
     //};
     //xhr.send(null);
     //xhr.abort();
@@ -207,18 +220,18 @@ $('a[data-toggle="tooltip"]').tooltip({
     //console.log(number_of_frames + ' get number frames');
     var frameIndex = spriteSheet._numFrames;
     //console.log(frameIndex);
-  
-  
+
+
     // @MAGIC - Adjusting the tolerance level to a higher value will
-    // broaden the range of acceptable colors for a given orb. 
+    // broaden the range of acceptable colors for a given orb.
     // 20 works best...
     var tolerance_level = 20;
 
     // Used to add the tolerance for an RGB value
     var color_top_range = function(color) {
-        var cTopRange = (color + tolerance_level);
-        
-        return cTopRange;
+      var cTopRange = (color + tolerance_level);
+
+      return cTopRange;
 
     }
     // Used to subtract the tolerance for an RGB value
@@ -239,7 +252,7 @@ $('a[data-toggle="tooltip"]').tooltip({
 
     // Super dirty, but it works...
     for (numx=0; numx < frameIndex; numx++) {
-      if (numx > 29) {  
+      if (numx > 29) {
 
         var isLikeFire = false;
         var isLikeWater = false;
@@ -333,7 +346,7 @@ $('a[data-toggle="tooltip"]').tooltip({
         } else {
           orbs_found.push('eX');
         }
-        
+
 
 
         /** OLD WAY
@@ -386,10 +399,10 @@ $('a[data-toggle="tooltip"]').tooltip({
         $(this).removeClass().addClass(swap_class);
         // SET ERROR FOR ORB ISSUE
         if (orbs_found[index] === 'eX') {
-           var message = '<div id="orb-alert-msg" class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
-           $("#solutions").append(message);
+          var message = '<div id="orb-alert-msg" class="bs-example"><div class="alert alert-danger alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> It looks like there was a problem with one or more of the orbs. You may want to double check the board.</div></div>';
+          $("#solutions").append(message);
           $(this).addClass('border-flash');
-            ga('send', 'event', 'error', 'Algorithm', 'Orb Color Not Found', 1);
+          ga('send', 'event', 'error', 'Algorithm', 'Orb Color Not Found', 1);
         }
         //console.log(current_icon_class);
         //$(this).removeClass(current_icon_class);
@@ -461,6 +474,5 @@ $('a[data-toggle="tooltip"]').tooltip({
   }
 
   //helpers
-  
 
 })(jQuery);
