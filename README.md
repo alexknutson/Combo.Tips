@@ -2,8 +2,6 @@
 
 #### Puzzle & Dragons Optimizer- Rebooted
 
-=====================================
-
 [![Animated Example](combo-tips-example.gif)](http://combo.tips)
 
 
