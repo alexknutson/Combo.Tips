@@ -331,6 +331,9 @@ th, label, #status, li, p {
     top: 0;
     display: none;
   }
+  .secondary-navbar-bottom {
+    display: none !important;
+  }
 }
 body .modal-backdrop {
   background-color: black !important;
@@ -349,6 +352,20 @@ body .modal-backdrop {
   border-bottom-left-radius: 9px;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+.paypal-donate {
+  width: 100px;
+  height: 29px;
+  background-color: lightgrey;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  display: inline-block;
+  color: black;
+  position: relative;
+  top: -7px;
+  margin-left: 18px;
 }
 .support-tag {
   color: orange;
