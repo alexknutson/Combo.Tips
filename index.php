@@ -450,9 +450,7 @@
         <div class="row">
           <div class="row">
             <div class="col-md-8">
-
-
-
+              <!-- empty -->
             </div>
             <div class="col-md-4">
               <!-- <h1>.col-md-4</h1> -->
