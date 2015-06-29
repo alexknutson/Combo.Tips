@@ -41,10 +41,6 @@
       <meta charset="utf-8"/>
     </head>
     <body>
-      <!-- <form id="imgur_upload" action="upload.php" method="POST">
-      Choose Image : <input name="img" size="35" type="file"/><br/>
-      <input type="submit" name="submit" value="Upload"/>
-      </form> -->
 
       <canvas id="path" width="380" height="316"></canvas>
       <div id="grid">
