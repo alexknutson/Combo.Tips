@@ -20,12 +20,6 @@ function make_match(type, count, isRow) {
     return {type: type, count: count, isRow: isRow};
 }
 
-/*
-function make_match(type, count) {
-    return {type: type, count: count};
-}
-*/
-
 function to_xy(rc) {
     var x = rc.col * ORB_X_SEP + ORB_WIDTH/2;
     var y = rc.row * ORB_Y_SEP + ORB_HEIGHT/2;
